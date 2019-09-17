@@ -37,4 +37,4 @@ insert into users values (3, 'Tom', 'Kiwitz', 'Manager');
 
 To run the application, first at all, you need to install node libraries with ```npm install```, then you can run it with ```npm start``` or with ```npm run debug``` to follow changes in the code and recharge aoutomatically.
 
-Finally to test you can use a browser and go to ```localhost:3000/users```. This endpoint will bring all the users with role vendedor. You also can apply a filter by id sending user id as a parameter, for instance: ```?id=1```. An example of SQL injection would be ```?id=1 or 1=1; --```.  
+Finally to test you can use a browser and go to ```localhost:3000/users```. This endpoint will bring all the users with role vendedor. You also can apply a filter by id sending user id as a parameter, for instance: ```?id=1```.  
