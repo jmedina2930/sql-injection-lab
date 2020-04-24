@@ -1,6 +1,6 @@
 # Repository to database laboratory - Universidad de Antioquia
 
-Expressjs app vulnerable to SQL injection. To run this app you need to have nodejs installed as well as a mysql instance running. You can have a mysql instance in a docker container with the following commands:
+Expressjs app vulnerable to SQL injection. To run this app you need to have nodejs installed as well as a mysql or an Oracle instance running. You use the Oracle instance you have used in prior labs or you can have a mysql instance in a docker container with the following commands:
 
 ```
 docker pull mysql
@@ -8,16 +8,17 @@ docker pull mysql
 docker run --name db-lab-mysql --rm -p 3306:3306 -e MYSQL_DATABASE=lab -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7.22
 ```
 
-When you have your mysql instance running you need to set connection info in ```routes/users.js``` as is shown bellow:
+Run a MySQL terminal in docker container: `docker exec -it db-lab-mysql mysql -uroot -p`
+
+When you have wheter your mysql or Oracle instance running you need to set connection info in ```config/database.js``` as is shown bellow:
 ```
-const connection = await mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'db-user',
-    password: 'db-pass',
-    database: 'lab'
-  });
+const host = 'localhost';
+const port = 3306;
+const user = 'root';
+const pass = 'root';
+const database = 'lab';
 ```
+You can choose wheter to work with Oracle or MySQL changing the value of the constant db in app.js. But if you want to work with Oracle you need to install Oracle insta client: https://www.oracle.com/database/technologies/instant-client/downloads.html
 
 You also need to have a table called users with the next config: 
 ```

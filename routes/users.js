@@ -1,37 +1,33 @@
-const mysql = require('mysql');
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /* GET users listing. */
-router.get('/', async function (req, res, next) {
-  const connection = await connect();
-  query = req.query.id ? `select first_name, last_name from users where id = ${req.query.id} and role = 'vendedor'`
-    : `select first_name, last_name from users where role = 'vendedor'`
+function usersRouter(connection, db) {
+  router.get('/', async function (req, res, next) {
+    // const connection = await connect();
+    const query = req.query.id ? `select first_name, last_name from users where id = ${req.query.id} and role = 'Vendedor'`
+      : `select first_name, last_name from users where role = 'Vendedor'`;
 
-  const request = await connection.query(query, (error, results, fields) => {
-    if (error) throw error;
-    res.send(results);
-  })
-  console.log(request.sql)
-  // res.send('respond with a resource');
-});
-
-async function connect() {
-  const connection = await mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'root',
-    database: 'lab'
-  });
-  await connection.connect((err) => {
-    if (err) {
-      console.error('error connecting: ' + err.stack);
-      return;
+    // query to database. Mysql and Oracle modules have different ways to query, this is why the if is needed.
+    if (db === 'oracle') {
+      try {
+        const results = await connection.execute(query, []);
+        res.send(results.rows);
+      } catch (err) {
+        console.log('Ouch!', err)
+      } finally {
+        if (connection) { // connection assignment worked, need to close
+          await connection.close()
+        }
+      }
+    } else {
+      const request = connection.query(query, (error, results, fields) => {
+        if (error) throw error;
+        res.send(results);
+      })
+      console.log(request.sql)
     }
-    console.log('connected as id ' + connection.threadId);
   });
-  return connection;
+  return router;
 }
-
-module.exports = router;
+module.exports = usersRouter;

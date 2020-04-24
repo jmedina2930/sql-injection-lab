@@ -1,12 +1,15 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
-var app = express();
+// Change this constant to 'oracle' if you want to work with Oracle database
+const db = 'mysql';
+
+let app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -14,7 +17,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+require('./config/database')(db).then(connection => {
+    app.use('/', indexRouter);
+    app.use('/users', usersRouter(connection, db));
+}).catch(err => console.error(err));
 
 module.exports = app;
