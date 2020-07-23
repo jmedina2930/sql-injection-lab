@@ -15,10 +15,6 @@ function usersRouter(connection, db) {
         res.send(results.rows);
       } catch (err) {
         console.log('Ouch!', err)
-      } finally {
-        if (connection) { // connection assignment worked, need to close
-          await connection.close()
-        }
       }
     } else {
       const request = connection.query(query, (error, results, fields) => {
