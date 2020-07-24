@@ -5,15 +5,24 @@ const router = express.Router();
 function usersRouter(connection, db) {
   router.get('/', async function (req, res, next) {
     // const connection = await connect();
-    const query = req.query.id ? `select first_name, last_name from users where id = ${req.query.id} and role = 'Vendedor'`
-      : `select first_name, last_name from users where role = 'Vendedor'`;
+    var entry= req.query.id 
+    const query =  `select first_name, last_name from users where id = :ide and role = 'Vendedor'` ;
+    const query1= `select first_name, last_name from users where role = 'Vendedor'`;
 
     // query to database. Mysql and Oracle modules have different ways to query, this is why the if is needed.
     if (db === 'oracle') {
       try {
-        const results = await connection.execute(query, []);
+      if(entry == undefined){
+    
+        const results1 = await connection.execute(query1, []);
+        res.send(results1.rows);
+      }
+      else{
+        const results = await connection.execute(query, [entry]);
         res.send(results.rows);
-      } catch (err) {
+      }
+      }
+      catch (err) {
         console.log('Ouch!', err)
       }
     } else {
