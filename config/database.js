@@ -1,7 +1,7 @@
 const host = "localhost";
-const port = 49161;
+const port = 1521;
 const user = "system";
-const pass = "oracle";
+const pass = "root";
 const database = "lab";
 
 async function mysqlConnect() {
