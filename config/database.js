@@ -1,8 +1,8 @@
-const host = "localhost";
-const port = 49161;
-const user = "system";
-const pass = "oracle";
-const database = "lab";
+const host = "127.0.0.1";
+const port = 3306;
+const user = "root";
+//const pass = "oracle";
+const database = "sqlinjection";
 
 async function mysqlConnect() {
   const mysql = require("mysql");
@@ -10,7 +10,7 @@ async function mysqlConnect() {
     host: host,
     port: port,
     user: user,
-    password: pass,
+    //password: pass,
     database: database,
   });
   await connection.connect((err) => {
@@ -27,7 +27,7 @@ async function oracleConnect() {
   const oracledb = require("oracledb");
   const config = {
     user: user,
-    password: pass,
+    //password: pass,
     connectString: `${host}:${port}/xe`,
   };
   let conn = await oracledb.getConnection(config);

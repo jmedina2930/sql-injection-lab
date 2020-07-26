@@ -5,7 +5,7 @@
   "author": "Jonathan Medina <jmedina2930@gmail.com>",
   "scripts": {
     "test": "mocha --reporter list \"**/*.test.js\"",
-    "start": "node ./bin/www",
+    "start": "node ./bin/www.js",
     "debug": "DEBUG=sql-injection:* nodemon start"
   },
   "dependencies": {

@@ -8,6 +8,14 @@ function usersRouter(connection, db) {
     const query = req.query.id ? `select first_name, last_name from users where id = ${req.query.id} and role = 'Vendedor'`
       : `select first_name, last_name from users where role = 'Vendedor'`;
 
+      /**
+       * ===================================================================================
+       * Creamos una nueva query que impide ataques de tipo sqlInjection usando parametros
+       * ===================================================================================
+       */
+    const query2 = req.query.id ? `select first_name, last_name from users where id = ? and role = 'Vendedor'`
+    : `select first_name, last_name from users where role = 'Vendedor'`;
+
     // query to database. Mysql and Oracle modules have different ways to query, this is why the if is needed.
     if (db === 'oracle') {
       try {
@@ -17,7 +25,10 @@ function usersRouter(connection, db) {
         console.log('Ouch!', err)
       }
     } else {
-      const request = connection.query(query, (error, results, fields) => {
+      /**
+       * Agregamos la nueva query y anezamos el parametro que llega por la url a la consulta
+       */
+      const request = connection.query(query2, req.query.id ,(error, results, fields) => {
         if (error) throw error;
         res.send(results);
       })
@@ -27,3 +38,4 @@ function usersRouter(connection, db) {
   return router;
 }
 module.exports = usersRouter;
+
