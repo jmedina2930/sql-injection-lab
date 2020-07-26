@@ -26,7 +26,7 @@ function usersRouter(connection, db) {
       }
     } else {
       /**
-       * Agregamos la nueva query y anezamos el parametro que llega por la url a la consulta
+       * Agregamos la nueva query y anexamos el parametro que llega por la url a la consulta
        */
       const request = connection.query(query2, req.query.id ,(error, results, fields) => {
         if (error) throw error;
