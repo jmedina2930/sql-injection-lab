@@ -1,8 +1,8 @@
 const host = "localhost";
-const port = 49161;
-const user = "system";
-const pass = "oracle";
-const database = "lab";
+const port = 3306;
+const user = "root";
+const pass = "1234";
+const database = "sql-injection-lab";
 
 async function mysqlConnect() {
   const mysql = require("mysql");
