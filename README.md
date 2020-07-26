@@ -56,12 +56,21 @@ expresion no se valida.
 
 ### 2. Realizar los cambios necesarios en el código para prevenir SQL injection. Puede utilizar Parameterized Statement o un ORM.
 
+
+
+```
 Para realizar este numeral se hizo uso de una herramienta para la libreria mysql 
 ( ver. https://www.npmjs.com/package/mysql ), la implementacion de dichos cambios 
 estan en el archivo  "routes/usersNoInjection.js".
 
 Se puede verificar que las inyecciones del numeral anterior no funcionan cuando 
 se usa esta implementación.
+```
+# 
+#
+#
+#
+
 
 ```
 docker pull mysql
