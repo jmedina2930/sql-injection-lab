@@ -18,7 +18,9 @@ Expressjs app vulnerable to SQL injection. To run this app you need to have node
 
 Sustentación: 
 
-En este caso se reemplaza el valor de id con un valor arbitriario `1`, seguido de cualquier tautologia como `1=1`  mediante un OR y por ultimo se agregan dos guiones altos `--` para anular las demas condiciones que puedan estar a la derecha.
+En este caso se reemplaza el valor de id con un valor arbitriario `1`, seguido de cualquier tautologia 
+como `1=1`  mediante un OR y por ultimo se agregan dos guiones altos `--` para anular las demas 
+condiciones que puedan estar a la derecha.
 
 Quedando la sentencia WHERE de la siguiente manera: 
     WHERE id = 1 OR 1=1 -- and role = 'Vendedor'`
@@ -30,13 +32,17 @@ Quedando la sentencia WHERE de la siguiente manera:
 
 Sustentación:
 
-En este caso se reemplaza el valor esperado (1 por ejemplo) por el `1`, seguido de una tautologia cualquiera como "1"="1", luego seguido de una condicion cualquiera siempre y cuando sea valida en el lenguaje de SQL y el esquema de la tabla.
+En este caso se reemplaza el valor esperado (1 por ejemplo) por el `1`, seguido de una tautologia cualquiera 
+como "1"="1", luego seguido de una condicion cualquiera siempre y cuando sea valida en el lenguaje de SQL
+ y el esquema de la tabla.
 
 Quedando la sentencia WHERE de la siguiente manera: 
     * WHERE id = 1 OR '1'='1' or role='hola_mundo' and role = 'Vendedor'
 
-Para entender como funciona esta inyeccion debemos de analizar el funcionamiento de la agrupacion entre los operadores logicos AND, OR.
-La siguiente expresion es equivalente a la resultante tras aplicar la inyección, pero se se vana a gregar parentesis para ver como se agruparon las condicion es y asi poder entener por que funciona la inyeccion.
+Para entender como funciona esta inyeccion debemos de analizar el funcionamiento de la agrupacion entre 
+los operadores logicos AND, OR.
+La siguiente expresion es equivalente a la resultante tras aplicar la inyección, pero se se vana a
+gregar parentesis para ver como se agruparon las condicion es y asi poder entener por que funciona la inyeccion.
 
 WHERE (id = 1 OR '1'='1') or (role='hola_mundo' and role = 'Vendedor')
     * Se puede notar que la primera expresion es una tautologia por lo cual la segunda expresion no se valida.
@@ -46,9 +52,13 @@ WHERE (id = 1 OR '1'='1') or (role='hola_mundo' and role = 'Vendedor')
 
 ### 2. Realizar los cambios necesarios en el código para prevenir SQL injection. Puede utilizar Parameterized Statement o un ORM.
 
-Para realizar este numeral se hizo uso de una herramienta para la libreria mysql ( ver. https://www.npmjs.com/package/mysql ), la implementacion de dichos cambios estan en el archivo  "routes/usersNoInjection.js".
+Para realizar este numeral se hizo uso de una herramienta para la libreria mysql 
+( ver. https://www.npmjs.com/package/mysql ), la implementacion de dichos cambios 
+estan en el archivo  "routes/usersNoInjection.js".
 
-Se puede verificar que las inyecciones del numeral anterior no funcionan cuando se usa esta implementación.
+Se puede verificar que las inyecciones del numeral anterior no funcionan cuando 
+se usa esta implementación.
+
 ```
 docker pull mysql
 
