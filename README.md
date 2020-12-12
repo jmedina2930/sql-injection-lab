@@ -26,7 +26,7 @@ You also need to have a table called users with the next config:
 
 ```
 CREATE TABLE users(
-	id number(10) PRIMARY KEY,
+	id numeric(10) PRIMARY KEY,
     first_name varchar(45) not null,
 	last_name varchar(45) not null,
     role varchar(10) not null);
