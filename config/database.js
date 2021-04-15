@@ -1,7 +1,7 @@
-const host = "localhost";
-const port = 49161;
-const user = "system";
-const pass = "oracle";
+const host = "lab-db-aws.cdviwvq6utyx.us-east-1.rds.amazonaws.com";
+const port = 3306;
+const user = "lab";
+const pass = "lab";
 const database = "lab";
 
 async function mysqlConnect() {
